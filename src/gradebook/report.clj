@@ -32,8 +32,7 @@
 (def ^:private grade-order ["A" "B" "C" "D" "F"])
 
 (defn distribution-chart
-  "`(get dist grade 0)` uses the third argument as a default, so a grade that
-  nobody earned shows as 0 instead of nil."
+  
   [dist]
   (->> grade-order
        (map (fn [grade]

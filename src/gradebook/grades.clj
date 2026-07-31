@@ -112,13 +112,12 @@
   (average (map student-average students)))
 
 (defn grade-distribution
-  "How many A's, B's, and so on. `frequencies` is built into Clojure."
+  
   [students]
   (frequencies (map grade-of students)))
 
 (defn by-group
-  "`group-by` builds a map from a key to the vector of items with that key.
-  Passing the keyword `:group` directly works because keywords are functions."
+  "`group-by` builds a map from a key to the vector of items with that key."
   [students]
   (group-by :group students))
 
