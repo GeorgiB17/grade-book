@@ -129,7 +129,19 @@
     (testing "and hands the value back, so it can sit inside other code"
       (is (re-find #"3" printed))))
   (testing "it expands into a let, with core names qualified for us"
-    (is (= 'clojure.core/let (first (macroexpand-1 '(spy (+ 1 2))))))))
+    ;; The symbol is written out in full here ON PURPOSE.
+    ;;
+    ;; `macroexpand-1` looks symbols up in whatever namespace is current when it
+    ;; RUNS (the var `*ns*`). In a REPL sitting in this namespace, plain `spy`
+    ;; resolves fine. But `clj -M -m` calls `-main` with `*ns*` bound to `user`,
+    ;; where the name `spy` means nothing — so macroexpand-1 would decide it is
+    ;; not a macro and hand the form straight back unexpanded, and this test
+    ;; would fail depending only on HOW you ran it.
+    ;;
+    ;; Naming the var in full removes the guesswork: `gradebook.debug/spy`
+    ;; resolves the same way from anywhere.
+    (is (= 'clojure.core/let
+           (first (macroexpand-1 '(gradebook.debug/spy (+ 1 2))))))))
 
 ;; ---------------------------------------------------------------------------
 

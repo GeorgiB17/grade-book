@@ -25,10 +25,6 @@
     (report/heading "Group averages")
     (report/group-chart (grades/group-averages students))]))
 
-;; ---------------------------------------------------------------------------
-;; Everything below here has side effects. Everything above does not.
-;; ---------------------------------------------------------------------------
-
 (defn- show-immutability
   "Proof, on screen, that adding a score changes nothing."
   []
@@ -52,3 +48,89 @@
   (show-immutability)
   (show-spy)
   (println))
+
+
+(comment
+
+  ;; ---- 1. The data ------------------------------------------------------ 
+
+  data/students
+
+  (first data/students)
+
+  (map :name data/students)
+
+
+  ;; ---- 2. One student ---------------------------------------------------
+
+  (grades/student-average (last data/students))
+
+  (grades/letter-grade 85)
+
+  (grades/grade-of (first data/students))
+
+  (grades/passing? (first data/students))
+
+
+ 
+  ;; ---- 3. Adding up, three ways -----------------------------------------
+
+  (grades/sum [1 2 3])
+
+  (grades/sum-recursive [1 2 3])
+
+  (grades/sum-loop [1 2 3])
+  
+  (grades/sum-loop (range 100000))
+
+
+  ;; ---- 4. The whole class -----------------------------------------------
+
+  (map :name (grades/ranked data/students))
+
+  (map :name (grades/failing-students data/students))
+
+  (grades/class-average data/students)
+
+  (grades/grade-distribution data/students)
+
+  (grades/group-averages data/students)
+
+  (grades/summary data/students)
+
+
+  ;; ---- 5. Nothing is ever modified -------------------------------------- 
+
+  (let [ada (first data/students)]
+    {:before  (:scores ada)
+     :after   (:scores (grades/add-score ada 100))
+     :ada-now (:scores ada)})
+
+ 
+  (let [before (first data/students)
+        after  (first (grades/add-score-to data/students "Bruno" 100))]
+    (identical? before after))
+
+
+  ;; ---- 6. The macro ----------------------------------------------------- 
+
+  (spy (+ 1 2))
+
+  (macroexpand-1 '(gradebook.debug/spy (+ 1 2)))
+
+  ;; ->> is a macro too. It is only syntax.
+  (macroexpand '(->> x f (g 1)))
+
+
+  ;; ---- 7. The whole thing -----------------------------------------------
+
+  (println (full-report data/students))
+
+  (-main)
+  )
+
+
+
+
+
+

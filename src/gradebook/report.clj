@@ -1,7 +1,5 @@
 (ns gradebook.report
-  "Turning results into text. Every function here RETURNS a string and prints
-  nothing. That means each one can be tested with `=`, and it keeps all the
-  printing in one place (core/-main)."
+  
   (:require [clojure.string :as str]
             [gradebook.grades :as grades]))
 
@@ -20,7 +18,7 @@
   [student]
   (format "  %-8s %-8s %6.2f    %s%s"
           (:name student)
-          (name (:group student))              ; :morning -> "morning"
+          (name (:group student))              
           (grades/student-average student)
           (grades/grade-of student)
           (if (grades/passing? student) "" "   <- failing")))

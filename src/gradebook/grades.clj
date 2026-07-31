@@ -50,14 +50,10 @@
     (double (/ (sum numbers) (count numbers)))))
 
 (defn student-average
-  "`(:scores student)` — a keyword is a function that looks itself up in a map."
   [student]
   (average (:scores student)))
 
 (defn letter-grade
-  "`cond` tries each test in order and returns the first match.
-  `:else` is not special — it is just a keyword, and every keyword is truthy,
-  so it always matches. It is the conventional way to write a default."
   [score]
   (cond
     (>= score 90) "A"
@@ -160,3 +156,6 @@
    :failing      (count (failing-students students))
    :best         (:name (first (ranked students)))
    :distribution (grade-distribution students)})
+
+(letter-grade 85)
+(reduce + [3 4 5])

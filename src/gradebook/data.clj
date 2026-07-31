@@ -1,6 +1,5 @@
 (ns gradebook.data
-  "The data. That is all this namespace is.
-
+  "
   A student is a MAP. The whole class is a VECTOR of maps.
   ")
 
@@ -12,4 +11,6 @@
    {:name "Eli"    :group :morning :scores [88 91 84]}
    {:name "Fatima" :group :evening :scores [45 52 58]}
    {:name "Goran"  :group :morning :scores [71 68 75]}
-   {:name "Georgi"   :group :evening :scores [96 94 99]}])
+   {:name "Georgi"   :group :evening :scores [96 94 99]}
+   {:name "Beorgi"   :group :evening :scores [3 93 98]}
+   ])
